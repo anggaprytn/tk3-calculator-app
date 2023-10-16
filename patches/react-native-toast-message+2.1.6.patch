@@ -1,0 +1,55 @@
+diff --git a/node_modules/react-native-toast-message/lib/src/components/BaseToast.js b/node_modules/react-native-toast-message/lib/src/components/BaseToast.js
+index eb581d8..9714201 100644
+--- a/node_modules/react-native-toast-message/lib/src/components/BaseToast.js
++++ b/node_modules/react-native-toast-message/lib/src/components/BaseToast.js
+@@ -3,16 +3,13 @@ import { Text, View } from 'react-native';
+ import { getTestId } from '../utils/test-id';
+ import { styles } from './BaseToast.styles';
+ import { Touchable } from './Touchable';
+-export function BaseToast({ text1, text2, onPress, activeOpacity, style, touchableContainerProps, contentContainerStyle, contentContainerProps, text1Style, text1NumberOfLines = 1, text1Props, text2Style, text2NumberOfLines = 1, text2Props, renderLeadingIcon, renderTrailingIcon }) {
++export function BaseToast({ text1, text2, onPress, activeOpacity, style, touchableContainerProps, contentContainerStyle, contentContainerProps, text1Style, text1NumberOfLines = 3, text1Props, renderLeadingIcon, renderTrailingIcon }) {
+     return (<Touchable testID={getTestId('TouchableContainer')} onPress={onPress} activeOpacity={activeOpacity} style={[styles.base, styles.leadingBorder, style]} {...touchableContainerProps}>
+       {renderLeadingIcon && renderLeadingIcon()}
+       <View testID={getTestId('ContentContainer')} style={[styles.contentContainer, contentContainerStyle]} {...contentContainerProps}>
+         {(text1?.length ?? 0) > 0 && (<Text testID={getTestId('Text1')} style={[styles.text1, text1Style]} numberOfLines={text1NumberOfLines} ellipsizeMode='tail' {...text1Props}>
+             {text1}
+           </Text>)}
+-        {(text2?.length ?? 0) > 0 && (<Text testID={getTestId('Text2')} style={[styles.text2, text2Style]} numberOfLines={text2NumberOfLines} ellipsizeMode='tail' {...text2Props}>
+-            {text2}
+-          </Text>)}
+       </View>
+       {renderTrailingIcon && renderTrailingIcon()}
+     </Touchable>);
+diff --git a/node_modules/react-native-toast-message/lib/src/components/BaseToast.styles.js b/node_modules/react-native-toast-message/lib/src/components/BaseToast.styles.js
+index 105748b..03e2ddc 100644
+--- a/node_modules/react-native-toast-message/lib/src/components/BaseToast.styles.js
++++ b/node_modules/react-native-toast-message/lib/src/components/BaseToast.styles.js
+@@ -25,9 +25,8 @@ export const styles = StyleSheet.create({
+         alignItems: 'flex-start' // In case of RTL, the text will start from the right
+     },
+     text1: {
+-        fontSize: 12,
+-        fontWeight: 'bold',
+-        marginBottom: 2,
++        fontSize: 17,
++        fontFamily: 'TTCommons-Medium',
+         color: '#000',
+         width: '100%' // Fixes: https://github.com/calintamas/react-native-toast-message/issues/130
+     },
+diff --git a/node_modules/react-native-toast-message/lib/src/useToast.js b/node_modules/react-native-toast-message/lib/src/useToast.js
+index 5794b67..a25c131 100644
+--- a/node_modules/react-native-toast-message/lib/src/useToast.js
++++ b/node_modules/react-native-toast-message/lib/src/useToast.js
+@@ -11,9 +11,9 @@ export const DEFAULT_OPTIONS = {
+     type: 'success',
+     position: 'top',
+     autoHide: true,
+-    visibilityTime: 4000,
+-    topOffset: 40,
+-    bottomOffset: 40,
++    visibilityTime: 1000,
++    topOffset: 56,
++    bottomOffset: 80,
+     keyboardOffset: 10,
+     onShow: noop,
+     onHide: noop,
